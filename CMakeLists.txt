@@ -4,8 +4,10 @@ if(POLICY CMP0135) # DOWNLOAD_EXTRACT_TIMESTAMP
   cmake_policy(SET CMP0135 OLD)
 endif()
 
+
 # HUNTER_ENABLED is always set if this package is included in a project using hunter (HunterGate sets it) In this case
 # we will use hunter as well to stay consistent. If not the use can supply it on configure to force using hunter.
+set(HUNTER_ENABLED ON)
 if(HUNTER_ENABLED)
   include("cmake/HunterGate.cmake")
   huntergate(URL "https://github.com/cpp-pm/hunter/archive/v0.23.314.tar.gz" SHA1
@@ -146,29 +148,13 @@ configure_package_config_file(
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/jwt-cpp-config-version.cmake VERSION 0.7.0
                                  COMPATIBILITY ExactVersion)
 
-# install(TARGETS jwt-cpp EXPORT jwt-cpp-targets PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-# install(EXPORT jwt-cpp-targets NAMESPACE jwt-cpp:: FILE jwt-cpp-targets.cmake
-#         DESTINATION ${JWT_CMAKE_FILES_INSTALL_DIR})
-# install(DIRECTORY ${JWT_INCLUDE_PATH}/jwt-cpp DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
-# if(NOT JWT_EXTERNAL_PICOJSON AND NOT JWT_DISABLE_PICOJSON)
-#   install(FILES ${JWT_INCLUDE_PATH}/picojson/picojson.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/picojson)
-# endif()
-# install(FILES ${CMAKE_CURRENT_BINARY_DIR}/jwt-cpp-config.cmake ${CMAKE_CURRENT_BINARY_DIR}/jwt-cpp-config-version.cmake
-#         DESTINATION ${JWT_CMAKE_FILES_INSTALL_DIR})
-
-if(JWT_BUILD_EXAMPLES)
-  add_subdirectory(example)
+install(TARGETS jwt-cpp EXPORT jwt-cpp-targets PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(EXPORT jwt-cpp-targets NAMESPACE jwt-cpp:: FILE jwt-cpp-targets.cmake
+        DESTINATION ${JWT_CMAKE_FILES_INSTALL_DIR})
+install(DIRECTORY ${JWT_INCLUDE_PATH}/jwt-cpp DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+if(NOT JWT_EXTERNAL_PICOJSON AND NOT JWT_DISABLE_PICOJSON)
+  install(FILES ${JWT_INCLUDE_PATH}/picojson/picojson.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/picojson)
 endif()
+install(FILES ${CMAKE_CURRENT_BINARY_DIR}/jwt-cpp-config.cmake ${CMAKE_CURRENT_BINARY_DIR}/jwt-cpp-config-version.cmake
+        DESTINATION ${JWT_CMAKE_FILES_INSTALL_DIR})
 
-if(JWT_BUILD_TESTS)
-  enable_testing()
-  add_subdirectory(tests)
-endif()
-
-if(JWT_ENABLE_FUZZING)
-  add_subdirectory(tests/fuzz)
-endif()
-
-if(JWT_BUILD_DOCS)
-  add_subdirectory(docs)
-endif()

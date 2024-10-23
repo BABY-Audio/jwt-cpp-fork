@@ -7,7 +7,12 @@ endif()
 
 # HUNTER_ENABLED is always set if this package is included in a project using hunter (HunterGate sets it) In this case
 # we will use hunter as well to stay consistent. If not the use can supply it on configure to force using hunter.
-set(HUNTER_ENABLED ON)
+if(APPLE)
+    set(HUNTER_ENABLED ON)
+else()
+    set(HUNTER_ENABLED OFF)
+endif()
+
 if(HUNTER_ENABLED)
   include("cmake/HunterGate.cmake")
   huntergate(URL "https://github.com/cpp-pm/hunter/archive/v0.23.314.tar.gz" SHA1

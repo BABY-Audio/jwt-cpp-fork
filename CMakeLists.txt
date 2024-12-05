@@ -13,9 +13,8 @@ set(HUNTER_ENABLED ON)
 
 
 if(HUNTER_ENABLED)
-  include("cmake/HunterGate.cmake")
-  huntergate(URL "https://github.com/cpp-pm/hunter/archive/v0.23.314.tar.gz" SHA1
-             "95c47c92f68edb091b5d6d18924baabe02a6962a")
+  huntergate(URL "https://github.com/cpp-pm/hunter/archive/refs/tags/v0.25.8.tar.gz" SHA1
+  "26c79d587883ec910bce168e25f6ac4595f97033")
   message(STATUS "jwt-cpp: using hunter for dependency resolution")
 endif()
 

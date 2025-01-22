@@ -5,13 +5,6 @@ if(POLICY CMP0135) # DOWNLOAD_EXTRACT_TIMESTAMP
 endif()
 
 
-# HUNTER_ENABLED is always set if this package is included in a project using hunter (HunterGate sets it) In this case
-# we will use hunter as well to stay consistent. If not the use can supply it on configure to force using hunter.
-if(APPLE)
-set(HUNTER_ENABLED ON)
-endif()
-
-
 if(HUNTER_ENABLED)
   huntergate(URL "https://github.com/cpp-pm/hunter/archive/refs/tags/v0.25.8.tar.gz" SHA1
   "26c79d587883ec910bce168e25f6ac4595f97033")
